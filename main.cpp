@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "game.h"
+#include "shader.h"
 
 
 // settings
@@ -49,6 +50,10 @@ int main()
 
     // Start Game within Menu State
     Breakout.State = GAME_ACTIVE;
+
+    // as we only have a single shader, we could also just activate our shader once beforehand if we want to 
+    Shader ourShader("shaders/sprite.vs", "shaders/sprite.frag");
+
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
