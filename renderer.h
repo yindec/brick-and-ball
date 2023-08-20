@@ -14,11 +14,10 @@ class Renderer
 public:
 	Renderer(Shader& shader);
 	~Renderer();
-	void Draw();
+	void Draw(Texture& texture, glm::vec2 position,
+		glm::vec2 size, GLfloat rotate, glm::vec3 color);
 private:
 	Shader shader;
-	Texture texture1;
-	Texture texture2;
-	unsigned int VBO, VAO, EBO;
+	unsigned int VBO, VAO;
 	void initRenderData();
 };

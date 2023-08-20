@@ -59,7 +59,7 @@ int main()
 
     // as we only have a single shader, we could also just activate our shader once beforehand if we want to 
     Shader ourShader("shaders/sprite.vs", "shaders/sprite.frag");
-
+    Texture texture("textures/awesomeface.png", false);
     Renderer renderer(ourShader);
 
     // render loop
@@ -72,10 +72,10 @@ int main()
 
         // render
         // ------
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        renderer.Draw();
+        renderer.Draw(texture, glm::vec2(200, 200), glm::vec2(300, 400), 45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
 
         glfwSwapBuffers(window);
