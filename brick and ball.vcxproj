@@ -135,12 +135,15 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="renderer.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h" />
+    <ClInclude Include="game_object.h" />
+    <ClInclude Include="renderer.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="texture.h" />

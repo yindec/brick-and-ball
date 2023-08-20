@@ -1,5 +1,8 @@
 #include "texture.h"
+Texture::Texture()
+{
 
+}
 Texture::Texture(const char* texturePath, bool format_rgb)
 {
 	

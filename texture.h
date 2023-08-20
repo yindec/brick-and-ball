@@ -12,6 +12,6 @@ public:
 	unsigned int ID;
 	int width, height, nrChannels;
 	unsigned char* data;
-
+	Texture();
 	Texture(const char* texturePath, bool format_rgb);
 };
