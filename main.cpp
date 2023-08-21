@@ -1,4 +1,4 @@
-#include <glad/glad.h>
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -11,7 +11,8 @@
 #include "texture.h"
 #include "stb_image.h"
 #include "renderer.h"
-
+#include "game_object.h"
+#include "game_level.h"
 
 // settings
 const unsigned int SCR_WIDTH = 800;
@@ -59,8 +60,12 @@ int main()
 
     // as we only have a single shader, we could also just activate our shader once beforehand if we want to 
     Shader ourShader("shaders/sprite.vs", "shaders/sprite.frag");
-    Texture texture("textures/awesomeface.png", false);
+    Texture awesomeface("textures/awesomeface.png", false);
+    Texture background("textures/background.jpg", true);
     Renderer renderer(ourShader);
+
+    GameLevel one;
+    one.Load("levels/one.lvl", SCR_WIDTH, SCR_HEIGHT * 0.5);
 
     // render loop
     // -----------
@@ -72,16 +77,15 @@ int main()
 
         // render
         // ------
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClearColor(0.2f, 0.3f, 0.4f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        renderer.Draw(texture, glm::vec2(200, 200), glm::vec2(300, 400), 45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-
+        renderer.Draw(background, glm::vec2(0, 0), glm::vec2(SCR_WIDTH, SCR_HEIGHT), 0.0f);
+        one.Draw(renderer);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
-
 
     glfwTerminate();
     return 0;

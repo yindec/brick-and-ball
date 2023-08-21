@@ -56,12 +56,10 @@ void Renderer::Draw(Texture& texture, glm::vec2 position,
 
     glm::mat4 projection = glm::ortho(0.0f, 800.f, 600.f, 0.0f, -1.0f, 1.0f);
     this->shader.setMatrix4("projection", projection);
-    //this->shader.setInt("image", 0);
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture.ID);
 
     glBindVertexArray(VAO);
-    /*glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);*/
     glDrawArrays(GL_TRIANGLES, 0, 6);
 }
