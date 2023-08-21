@@ -64,7 +64,7 @@ int main()
     {
         // input
         // -----
-        Breakout.ProcessInput(window, 0.2);
+        Breakout.ProcessInput(window, 0.02);
 
         // render
         // ------

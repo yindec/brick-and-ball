@@ -5,6 +5,7 @@ GameObject* Player;
 Renderer* renderer;
 Texture* awesomeface;
 Texture* background;
+Texture* paddle;
 
 Game::Game(GLuint width, GLuint height)
     : State(GAME_ACTIVE), Keys(), Width(width), Height(height)
@@ -18,6 +19,7 @@ Game::~Game()
     delete Player;
     delete background;
     delete awesomeface;
+    delete paddle;
 }
 
 void Game::Init()
@@ -27,6 +29,7 @@ void Game::Init()
 
     awesomeface = new Texture("textures/awesomeface.png", false);
     background = new Texture("textures/background.jpg", true);
+    paddle = new Texture("textures/paddle.png", false);
 
     this->level = 0;
     GameLevel one;
@@ -35,6 +38,9 @@ void Game::Init()
     two.Load("levels/two.lvl", 800, 600 * 0.5);
     this->Levels.push_back(one);
     this->Levels.push_back(two);
+
+    glm::vec2 playerPos = glm::vec2(this->Width / 2 - PLAYER_SIZE.x / 2, this->Height - PLAYER_SIZE.y);
+    Player = new GameObject(playerPos, PLAYER_SIZE, *paddle);
 }
 
 void Game::Update(GLfloat dt)
@@ -47,19 +53,19 @@ void Game::ProcessInput(GLFWwindow* window, float dt)
     {
         GLfloat velocity = PLAYER_VELOCITY * dt;
         // Move playerboard
-        if (this->Keys[GLFW_KEY_A])
+        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
         {
             if (Player->Position.x >= 0)
                 Player->Position.x -= velocity;
         }
-        if (this->Keys[GLFW_KEY_D])
+        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         {
             if (Player->Position.x <= this->Width - Player->Size.x)
                 Player->Position.x += velocity;
         }
+        if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+            glfwSetWindowShouldClose(window, true);
     }
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
 }
 
 void Game::Render()
@@ -68,5 +74,5 @@ void Game::Render()
     renderer->Draw(*background, glm::vec2(0, 0), glm::vec2(800, 600), 0.0f);
     this->Levels[this->level].Draw(*renderer);
     // Draw player
-    //Player->Draw(*renderer);
+    Player->Draw(*renderer);
 }
