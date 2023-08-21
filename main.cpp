@@ -58,30 +58,20 @@ int main()
     // Start Game within Menu State
     Breakout.State = GAME_ACTIVE;
 
-    // as we only have a single shader, we could also just activate our shader once beforehand if we want to 
-    Shader ourShader("shaders/sprite.vs", "shaders/sprite.frag");
-    Texture awesomeface("textures/awesomeface.png", false);
-    Texture background("textures/background.jpg", true);
-    Renderer renderer(ourShader);
-
-    GameLevel one;
-    one.Load("levels/one.lvl", SCR_WIDTH, SCR_HEIGHT * 0.5);
-
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
     {
         // input
         // -----
-        Breakout.ProcessInput(window);
+        Breakout.ProcessInput(window, 0.2);
 
         // render
         // ------
         glClearColor(0.2f, 0.3f, 0.4f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        renderer.Draw(background, glm::vec2(0, 0), glm::vec2(SCR_WIDTH, SCR_HEIGHT), 0.0f);
-        one.Draw(renderer);
+        Breakout.Render();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
