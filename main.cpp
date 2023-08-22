@@ -7,12 +7,7 @@
 #include <iostream>
 
 #include "game.h"
-#include "shader.h"
-#include "texture.h"
-#include "stb_image.h"
-#include "renderer.h"
-#include "game_object.h"
-#include "game_level.h"
+
 
 // settings
 const unsigned int SCR_WIDTH = 800;
@@ -52,7 +47,7 @@ int main()
     Breakout.Init();
 
     // DeltaTime variables
-    GLfloat deltaTime = 0.0f;
+    GLfloat deltaTime = 0.02f;
     GLfloat lastFrame = 0.0f;
 
     // Start Game within Menu State
@@ -64,13 +59,14 @@ int main()
     {
         // input
         // -----
-        Breakout.ProcessInput(window, 0.02);
+        Breakout.ProcessInput(window, deltaTime);
 
         // render
         // ------
         glClearColor(0.2f, 0.3f, 0.4f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        Breakout.Update(deltaTime);
         Breakout.Render();
 
         glfwSwapBuffers(window);

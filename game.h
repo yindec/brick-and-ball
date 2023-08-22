@@ -7,6 +7,7 @@
 #include "renderer.h"
 #include "game_level.h"
 #include "renderer.h"
+#include "ball_object.h"
 
 enum GameState {
     GAME_ACTIVE,
@@ -38,4 +39,5 @@ public:
     void ProcessInput(GLFWwindow* window, float dt);
     void Update(GLfloat dt);
     void Render();
+    void DoCollisions();
 };
