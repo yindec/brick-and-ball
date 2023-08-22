@@ -11,6 +11,7 @@
 #include "game_level.h"
 #include "renderer.h"
 #include "ball_object.h"
+#include "particle_generator.h"
 
 enum GameState {
     GAME_ACTIVE,

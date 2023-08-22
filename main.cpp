@@ -34,7 +34,8 @@ int main()
         return -1;
     }
     glfwMakeContextCurrent(window);
-
+    
+    glewInit();
     // glad: load all OpenGL function pointers
     // ---------------------------------------
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))

@@ -10,7 +10,7 @@ class Texture
 {
 public:
 	unsigned int ID;
-	int width, height, nrChannels;
+	int width, height;
 	unsigned char* data;
 	Texture();
 	Texture(const char* texturePath, bool format_rgb);

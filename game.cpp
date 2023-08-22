@@ -3,6 +3,7 @@
 // Game-related State data
 GameObject* Player;
 BallObject* Ball;
+ParticleGenerator* Particles;
 Renderer* renderer;
 Texture* awesomeface;
 Texture* background;
@@ -49,6 +50,8 @@ void Game::Init()
 
     glm::vec2 ballPos = playerPos + glm::vec2(PLAYER_SIZE.x / 2 - BALL_RADIUS, -BALL_RADIUS * 2);
     Ball = new BallObject(ballPos, BALL_RADIUS, INITIAL_BALL_VELOCITY, *awesomeface);
+
+    Particles = new ParticleGenerator(150);
 }
 
 void Game::Update(GLfloat dt)
@@ -56,6 +59,8 @@ void Game::Update(GLfloat dt)
     Ball->Move(dt, this->Width);
 
     this->DoCollisions();
+
+    Particles->Update(dt, *Ball, 5, glm::vec2(Ball->Radius / 2));
 
     if (Ball->Position.y >= this->Height)
     {
@@ -98,6 +103,8 @@ void Game::Render()
     this->Levels[this->level].Draw(*renderer);
     // Draw player
     Player->Draw(*renderer);
+    // Draw particles   
+    Particles->Draw();
     Ball->Draw(*renderer);
 }
 

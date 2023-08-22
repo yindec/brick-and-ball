@@ -25,7 +25,9 @@ public:
 	void setInt(const std::string& name, int value) const;
 	void setFloat(const std::string& name, float value) const;
 	void setMatrix4(const std::string& name, const glm::mat4& matrix) const;
+	void setVector2f(const std::string& name, const glm::vec2& value) const;
 	void setVector3f(const std::string& name, const glm::vec3& value) const;
+	void setVector4f(const std::string& name, const glm::vec4& value) const;
 private:
 	void checkCompileErrors(unsigned int shader, std::string type);
 };

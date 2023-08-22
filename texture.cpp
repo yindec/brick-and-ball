@@ -1,11 +1,11 @@
 #include "texture.h"
-Texture::Texture()
+Texture::Texture() : width(0), height(0)
 {
-
+    glGenTextures(1, &this->ID);
 }
 Texture::Texture(const char* texturePath, bool format_rgb)
 {
-	
+	int nrChannels;
     glGenTextures(1, &ID);
     glBindTexture(GL_TEXTURE_2D, ID);
     // set the texture wrapping parameters
