@@ -9,7 +9,7 @@
 #include "renderer.h"
 #include "ball_object.h"
 
-enum GameState {
+enum GameState { 
     GAME_ACTIVE,
     GAME_MENU,
     GAME_WIN
