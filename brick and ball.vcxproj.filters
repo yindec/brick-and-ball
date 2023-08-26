@@ -48,6 +48,9 @@
     <ClCompile Include="particle_generator.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="post_processor.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h">
@@ -75,6 +78,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="particle_generator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="post_processor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

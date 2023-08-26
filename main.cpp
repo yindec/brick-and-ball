@@ -54,6 +54,7 @@ int main()
     // Start Game within Menu State
     Breakout.State = GAME_ACTIVE;
 
+    
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
@@ -62,13 +63,12 @@ int main()
         // -----
         Breakout.ProcessInput(window, deltaTime);
 
-        // render
-        // ------
-        glClearColor(0.2f, 0.3f, 0.4f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        
 
         Breakout.Update(deltaTime);
         Breakout.Render();
+
+
 
         glfwSwapBuffers(window);
         glfwPollEvents();

@@ -66,9 +66,12 @@ void ParticleGenerator::Draw()
 	{
 		if (particle.Life > 0.0f)
 		{
+			glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+			model = glm::translate(model, glm::vec3(0, 0, -0.5));
 			glm::mat4 projection = glm::ortho(0.0f, 800.f, 600.f, 0.0f, -1.0f, 1.0f);
+			this->shader.setMatrix4("model", model);
 			this->shader.setMatrix4("projection", projection);
-			this->shader.setVector2f("offset", particle.Position);
+			this->shader.setVector2f("offset", particle.Position);  
 			this->shader.setVector4f("color", particle.Color);
 
 			glActiveTexture(GL_TEXTURE0);

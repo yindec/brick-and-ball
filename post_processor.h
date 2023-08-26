@@ -11,7 +11,7 @@ class PostProcessor
 {
 public:
 	// State
-	Shader PostProcessingShader;
+	Shader shader;
 	Texture texture;
 	GLuint Width, Height;
 	// Options
@@ -22,8 +22,7 @@ public:
 	void EndRender();
 	void Render(GLfloat time);
 private:
-	GLuint MSFBO, FBO;
+	GLuint FBO;
 	GLuint RBO;
 	GLuint VAO;
-	void initRenderData();
 };

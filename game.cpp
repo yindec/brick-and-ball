@@ -8,6 +8,8 @@ Renderer* renderer;
 Texture* awesomeface;
 Texture* background;
 Texture* paddle;
+PostProcessor* Post;
+float ShakeTime = 0.0f;
 
 Collision CheckCollision(BallObject& one, GameObject& two);
 Direction VectorDirection(glm::vec2 target);
@@ -52,6 +54,12 @@ void Game::Init()
     Ball = new BallObject(ballPos, BALL_RADIUS, INITIAL_BALL_VELOCITY, *awesomeface);
 
     Particles = new ParticleGenerator(150);
+
+
+    Shader screenShader("shaders/1.vs", "shaders/1.frag");
+    
+    Post = new PostProcessor(screenShader, this->Width, this->Height);
+
 }
 
 void Game::Update(GLfloat dt)
@@ -66,6 +74,12 @@ void Game::Update(GLfloat dt)
     {
         this->ResetLevel();
         this->ResetPlayer();
+    }
+    if (ShakeTime > 0.0f)
+    {
+        ShakeTime -= dt;
+        if (ShakeTime <= 0.0f)
+            Post->Shake = false;
     }
 }
 void Game::ProcessInput(GLFWwindow* window, float dt)
@@ -99,13 +113,18 @@ void Game::ProcessInput(GLFWwindow* window, float dt)
 
 void Game::Render()
 {
-    renderer->Draw(*background, glm::vec2(0, 0), glm::vec2(800, 600), 0.0f);
+    Post->BeginRender();
+
+    renderer->Draw(*background, glm::vec3(0, 0, -1), glm::vec2(800, 600), 0.0f);
     this->Levels[this->level].Draw(*renderer);
     // Draw player
     Player->Draw(*renderer);
     // Draw particles   
     Particles->Draw();
     Ball->Draw(*renderer);
+
+    Post->EndRender();
+    Post->Render(glfwGetTime());
 }
 
 void Game::DoCollisions()
@@ -119,6 +138,11 @@ void Game::DoCollisions()
             {
                 if (!brick.IsSolid)
                     brick.Destroyed = GL_TRUE;
+                else
+                {
+                    ShakeTime = 0.05f;
+                    Post->Shake = true;
+                }
                 Direction dir = std::get<1>(collision);
                 glm::vec2 diff_vector = std::get<2>(collision);
                 if (dir == LEFT || dir == RIGHT)
