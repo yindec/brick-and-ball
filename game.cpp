@@ -1,4 +1,8 @@
 #include "game.h"
+#include <algorithm>
+
+#include <irrklang/irrKlang.h>
+using namespace irrklang;
 
 // Game-related State data
 GameObject* Player;
@@ -16,6 +20,8 @@ Texture* tex_confuse;
 Texture* tex_chaos;
 
 PostProcessor* Post;
+
+ISoundEngine* SoundEngine = createIrrKlangDevice();
 float ShakeTime = 0.0f;
 
 GLboolean CheckCollision(GameObject& one, GameObject& two);
@@ -36,6 +42,8 @@ Game::~Game()
     delete background;
     delete awesomeface;
     delete paddle;
+
+    SoundEngine->drop();
 }
 
 void Game::Init()
@@ -79,6 +87,8 @@ void Game::Init()
     
     Post = new PostProcessor(screenShader, this->Width, this->Height);
 
+    // Audio
+    SoundEngine->play2D("audio/breakout.mp3", GL_TRUE);
 }
 
 void Game::Update(GLfloat dt)
@@ -182,11 +192,13 @@ void Game::DoCollisions()
                 {
                     brick.Destroyed = GL_TRUE;
                     this->SpawnPowerUps(brick);
+                    SoundEngine->play2D("audio/bleep.mp3", GL_FALSE);
                 }                    
                 else
                 {
                     ShakeTime = 0.05f;
                     Post->Shake = true;
+                    SoundEngine->play2D("audio/solid.wav", GL_FALSE);
                 }
                 Direction dir = std::get<1>(collision);
                 glm::vec2 diff_vector = std::get<2>(collision);
@@ -225,6 +237,7 @@ void Game::DoCollisions()
                     ActivatePowerUp(powerUp);
                     powerUp.Destroyed = GL_TRUE;
                     powerUp.Activated = GL_TRUE;
+                    SoundEngine->play2D("audio/powerup.wav", GL_FALSE);
                 }
             }
         }
@@ -242,6 +255,8 @@ void Game::DoCollisions()
         Ball->Velocity.y = -1.0f * abs(Ball->Velocity.y);
         Ball->Velocity = glm::normalize(Ball->Velocity) * glm::length(oldVelocity);
         Ball->Stuck = Ball->Sticky;
+
+        SoundEngine->play2D("audio/bleep.wav", GL_FALSE);
     }
 }
 
