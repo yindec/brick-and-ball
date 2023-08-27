@@ -13,6 +13,7 @@
 #include "ball_object.h"
 #include "particle_generator.h"
 #include "post_processor.h"
+#include "power_up.h"
 
 enum GameState {
     GAME_ACTIVE,
@@ -48,6 +49,7 @@ public:
     GLuint     Width, Height;
     std::vector<GameLevel> Levels;
     GLuint     level;
+    std::vector<PowerUp>  PowerUps;
     
     // 构造函数/析构函数
     Game(GLuint width, GLuint height);
@@ -62,4 +64,7 @@ public:
 
     void ResetLevel();
     void ResetPlayer();
+
+    void SpawnPowerUps(GameObject& block);
+    void UpdatePowerUps(GLfloat dt);
 };
