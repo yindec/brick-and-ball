@@ -14,6 +14,7 @@
 #include "particle_generator.h"
 #include "post_processor.h"
 #include "power_up.h"
+#include "text_renderer.h"
 
 enum GameState {
     GAME_ACTIVE,
@@ -50,6 +51,8 @@ public:
     std::vector<GameLevel> Levels;
     GLuint     level;
     std::vector<PowerUp>  PowerUps;
+    GLuint     Lives;
+    GLboolean KeysProcessed[1024];
     
     // 构造函数/析构函数
     Game(GLuint width, GLuint height);

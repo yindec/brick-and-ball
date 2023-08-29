@@ -74,3 +74,11 @@ void GameLevel::init(std::vector<std::vector<GLuint>> tileData, GLuint levelWidt
         }
     }
 }
+
+GLboolean GameLevel::IsCompleted()
+{
+    for (GameObject& tile : this->Bricks)
+        if (!tile.IsSolid && !tile.Destroyed)
+            return GL_FALSE;
+    return GL_TRUE;
+}
