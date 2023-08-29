@@ -214,7 +214,7 @@ void Game::Render()
     {
         Post->BeginRender();
 
-        renderer->Draw(*background, glm::vec3(0, 0, -1), glm::vec2(800, 600), 0.0f);
+        renderer->Draw(*background, glm::vec3(0, 0, -0.8), glm::vec2(800, 600), 0.0f);
         this->Levels[this->level].Draw(*renderer);
         // Draw player
         Player->Draw(*renderer);
